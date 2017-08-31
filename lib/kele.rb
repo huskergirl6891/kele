@@ -25,10 +25,8 @@ class Kele
   end
 
   def get_messages(id=nil)
-    puts "id = "
-    puts id
     if id != nil
-      response = self.class.get("https://www.bloc.io/api/v1/message_threads?page=1", headers: { "authorization" => @auth_token })
+      response = self.class.get("https://www.bloc.io/api/v1/message_threads?page=#{id}", headers: { "authorization" => @auth_token })
       messages = JSON.parse response.body
       result = messages["items"]
     else
@@ -42,7 +40,7 @@ class Kele
         puts "Total Message Count = "
         puts total_message_count
         count += 1
-        response = self.class.get("https://www.bloc.io/api/v1/message_threads?page=2", headers: { "authorization" => @auth_token })
+        response = self.class.get("https://www.bloc.io/api/v1/message_threads?page=#{count}", headers: { "authorization" => @auth_token })
         temp_messages = JSON.parse response.body
         result.concat temp_messages["items"]
         total_message_count -= 10
