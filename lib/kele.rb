@@ -55,12 +55,19 @@ class Kele
       response = self.class.post("https://www.bloc.io/api/v1/messages?sender=carissabcastro@gmail.com&recipient_id=2362517&token=#{token}&subject=#{subject}&stripped-text=#{body}", headers: { "authorization" => @auth_token })
     else
       response = self.class.post("https://www.bloc.io/api/v1/messages?sender=carissabcastro@gmail.com&recipient_id=2362517&subject=#{subject}&stripped-text=#{body}", headers: { "authorization" => @auth_token })
-      #   body: "sender=carissabcastro@gmail.com&recipient_id=2362517&subject=Testing new title&stripped-text=Trying new text here.",
-      #   headers: {
-      #     "authorization" => @auth_token
-      #   }
-      # })
     end
+    puts response
+  end
+
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+    response = self.class.post("https://www.bloc.io/api/v1/checkpoint_submissions", headers: { "authorization" => @auth_token },
+      body: {
+        "assignment_branch":assignment_branch,
+        "assignment_commit_link":assignment_commit_link,
+        "checkpoint_id":checkpoint_id,
+        "comment":comment,
+        "enrollment_id":27726
+      })
     puts response
   end
 end
