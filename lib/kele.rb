@@ -50,8 +50,17 @@ class Kele
     puts
   end
 
-  def create_messages(*token)
-    response = self.class.post('https://www.bloc.io/api/v1/messages', values: { "sender" => "carissabcastro@gmail.com", "recipient_id" => 2362517, "token" => token, "subject" => "Royale with cheese", "stripped-text" => "That's what they call a quarter pounder in France." }, headers: { "authorization" => @auth_token })
+  def create_messages(token=nil, subject, body)
+    if token != nil
+      response = self.class.post("https://www.bloc.io/api/v1/messages?sender=carissabcastro@gmail.com&recipient_id=2362517&token=#{token}&subject=#{subject}&stripped-text=#{body}", headers: { "authorization" => @auth_token })
+    else
+      response = self.class.post("https://www.bloc.io/api/v1/messages?sender=carissabcastro@gmail.com&recipient_id=2362517&subject=#{subject}&stripped-text=#{body}", headers: { "authorization" => @auth_token })
+      #   body: "sender=carissabcastro@gmail.com&recipient_id=2362517&subject=Testing new title&stripped-text=Trying new text here.",
+      #   headers: {
+      #     "authorization" => @auth_token
+      #   }
+      # })
+    end
     puts response
   end
 end
